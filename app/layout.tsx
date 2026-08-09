@@ -20,7 +20,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Spark | Find Your Crowd",
+  title: "SOL | Your Intellectual Home",
   description: "Find your genuine interest crowd, join trusted circles, and climb toward the National Guild.",
 };
 
@@ -34,7 +34,7 @@ export default function RootLayout({
       lang="en"
       className={`${spaceGrotesk.variable} ${jetbrainsMono.variable} ${inter.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-ink text-paper font-body selection:bg-ember selection:text-ink">
+      <body className="min-h-full flex flex-col bg-[#050702] text-paper font-body selection:bg-[#2e4ed2] selection:text-[#ee9dd6]">
         {children}
       </body>
     </html>

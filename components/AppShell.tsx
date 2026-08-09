@@ -3,6 +3,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 import { getCurrentUser } from '@/lib/dataService';
 import { UserProfile } from '@/lib/seedData';
@@ -14,7 +15,6 @@ import {
   Award,
   User,
   LogOut,
-  Sparkles,
   Shield,
 } from 'lucide-react';
 
@@ -46,24 +46,27 @@ export default function AppShell({ children }: AppShellProps) {
     { href: '/profile', label: 'Profile', icon: User },
   ];
 
-  const isAdmin = user?.email?.toLowerCase() === 'admin@spark.edu';
+  const isAdmin = user?.email?.toLowerCase() === 'admin@spark.edu' || user?.email?.toLowerCase() === 'admin@sol.edu';
 
   return (
-    <div className="min-h-screen bg-ink text-paper flex flex-col md:flex-row">
+    <div className="min-h-screen bg-[#050702] text-paper flex flex-col md:flex-row">
       {/* Desktop Left Rail Navigation (md:flex) */}
       <aside className="hidden md:flex flex-col w-64 bg-ink-raised border-r border-paper/10 min-h-screen p-6 sticky top-0 h-screen justify-between z-30">
         <div className="space-y-8">
           {/* Brand header */}
-          <Link href="/communities" className="flex items-center space-x-3 group">
-            <div className="w-9 h-9 rounded-xl bg-ember/15 border border-ember/30 flex items-center justify-center text-ember group-hover:scale-105 transition-transform">
-              <Sparkles className="w-5 h-5" />
+          <Link href="/communities" className="flex flex-col items-start space-y-1 group">
+            <div className="relative h-10 w-28 transition-transform group-hover:scale-105">
+              <Image
+                src="/sol-logo.png"
+                alt="SOL Logo"
+                fill
+                className="object-contain"
+                priority
+              />
             </div>
-            <div>
-              <span className="font-display font-bold text-xl text-paper tracking-tight">Spark</span>
-              <span className="block font-mono text-[10px] text-paper/40 uppercase tracking-widest">
-                Student Guild
-              </span>
-            </div>
+            <span className="font-mono text-[9px] text-[#BEF202] uppercase tracking-widest leading-none">
+              Student Guild
+            </span>
           </Link>
 
           {/* User seal badge */}
@@ -97,11 +100,11 @@ export default function AppShell({ children }: AppShellProps) {
                   href={item.href}
                   className={`flex items-center space-x-3 px-4 py-3 rounded-xl font-mono text-xs transition-all ${
                     isActive
-                      ? 'bg-ember/15 text-ember font-bold border border-ember/30 shadow-md shadow-ember/5'
+                      ? 'bg-[#2e4ed2]/30 text-[#BEF202] font-bold border border-[#BEF202]/40 shadow-md shadow-[#BEF202]/5'
                       : 'text-paper/70 hover:bg-ink hover:text-paper border border-transparent'
                   }`}
                 >
-                  <Icon className={`w-4 h-4 ${isActive ? 'text-ember' : 'text-paper/60'}`} />
+                  <Icon className={`w-4 h-4 ${isActive ? 'text-[#BEF202]' : 'text-paper/60'}`} />
                   <span>{item.label}</span>
                 </Link>
               );
@@ -146,10 +149,10 @@ export default function AppShell({ children }: AppShellProps) {
               key={item.href}
               href={item.href}
               className={`flex flex-col items-center py-1 px-3 rounded-lg text-[10px] font-mono transition-colors ${
-                isActive ? 'text-ember font-bold' : 'text-paper/50 hover:text-paper'
+                isActive ? 'text-[#BEF202] font-bold' : 'text-paper/50 hover:text-paper'
               }`}
             >
-              <Icon className={`w-5 h-5 mb-0.5 ${isActive ? 'text-ember' : 'text-paper/50'}`} />
+              <Icon className={`w-5 h-5 mb-0.5 ${isActive ? 'text-[#BEF202]' : 'text-paper/50'}`} />
               <span>{item.label}</span>
             </Link>
           );
