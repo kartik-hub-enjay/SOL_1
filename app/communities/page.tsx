@@ -101,14 +101,7 @@ export default function CommunitiesPage() {
               >
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
-                    <span
-                      className="px-2.5 py-1 rounded-md text-[10px] font-mono font-bold uppercase tracking-wider"
-                      style={{
-                        backgroundColor: `${comm.cover_accent}20`,
-                        color: comm.cover_accent,
-                        border: `1px solid ${comm.cover_accent}40`,
-                      }}
-                    >
+                    <span className="px-2.5 py-1 rounded-md text-[10px] font-mono font-bold uppercase tracking-wider bg-[#ee9dd6]/15 text-[#ee9dd6] border border-[#ee9dd6]/40">
                       #{comm.tag}
                     </span>
 
@@ -137,7 +130,7 @@ export default function CommunitiesPage() {
                     onClick={(e) => handleToggleJoin(e, comm.id)}
                     className={`py-1.5 px-3.5 rounded-lg font-mono text-xs font-bold flex items-center space-x-1 transition-all cursor-pointer relative z-10 ${
                       isJoined
-                        ? 'bg-signal/20 text-signal border border-signal/40'
+                        ? 'bg-[#ee9dd6]/20 text-[#ee9dd6] border border-[#ee9dd6]/40'
                         : 'bg-paper/10 text-paper hover:bg-paper/20 border border-paper/10'
                     }`}
                   >
