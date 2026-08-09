@@ -4,8 +4,9 @@
 import Link from 'next/link';
 import ConstellationSVG from '@/components/ConstellationSVG';
 import NeonMesh from '@/components/ui/neon-mesh';
+import Header from '@/components/Header';
 import { SEEDED_COMMUNITIES } from '@/lib/seedData';
-import { Sparkles, ArrowRight, Compass, Users, Award, ShieldCheck, CheckCircle2, Move3d } from 'lucide-react';
+import { Sparkles, ArrowRight, Compass, Users, Award, ShieldCheck, CheckCircle2 } from 'lucide-react';
 
 export default function LandingPage() {
   const steps = [
@@ -53,36 +54,7 @@ export default function LandingPage() {
       {/* Foreground Content Wrapper */}
       <div className="relative z-10 flex flex-col min-h-screen pointer-events-auto">
         {/* Top Header Navbar */}
-        <header className="px-6 py-5 border-b border-paper/10 sticky top-0 bg-[#050702]/80 backdrop-blur-md z-40">
-          <div className="max-w-7xl mx-auto flex items-center justify-between">
-            <Link href="/" className="flex items-center space-x-3 group">
-              <div className="w-9 h-9 rounded-xl bg-ember/15 border border-ember/30 flex items-center justify-center text-ember group-hover:scale-105 transition-transform">
-                <Sparkles className="w-5 h-5" />
-              </div>
-              <div>
-                <span className="font-display font-bold text-xl text-paper tracking-tight">Spark</span>
-                <span className="block font-mono text-[9px] text-[#BEF202] uppercase tracking-widest">
-                  Student Guild
-                </span>
-              </div>
-            </Link>
-
-            <div className="flex items-center space-x-4">
-              <Link
-                href="/login"
-                className="px-4 py-2 rounded-xl font-mono text-xs text-paper/80 hover:text-paper transition-colors bg-[#0F1024]/60 border border-paper/10 backdrop-blur-sm"
-              >
-                Log In
-              </Link>
-              <Link
-                href="/signup"
-                className="px-5 py-2.5 rounded-xl bg-ember text-ink font-display font-bold text-xs hover:opacity-90 transition-opacity cursor-pointer shadow-lg shadow-ember/20"
-              >
-                Get Started
-              </Link>
-            </div>
-          </div>
-        </header>
+        <Header />
 
         {/* HERO SECTION — Asymmetric Layout over 3D Mesh */}
         <section className="px-6 py-12 md:py-24 max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
