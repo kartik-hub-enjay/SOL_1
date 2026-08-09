@@ -90,9 +90,9 @@ export default function Dock({
                       variant="ghost"
                       size="icon"
                       className={cn(
-                        "rounded-2xl relative",
-                        "transition-colors",
-                        isHovered && "shadow-lg shadow-primary/20"
+                        "rounded-2xl relative transition-all duration-200",
+                        isHovered && "shadow-[0_0_18px_#ee9dd6] bg-[#ee9dd6]",
+                        isActive && !isHovered && "bg-[#ee9dd6] shadow-sm"
                       )}
                       onClick={() => {
                         setInternalActive(item.label)
@@ -102,14 +102,14 @@ export default function Dock({
                       <item.icon
                         className={cn(
                           "h-6 w-6 transition-colors",
-                          isActive ? "text-primary" : "text-foreground"
+                          (isActive || isHovered) ? "text-black" : "text-foreground"
                         )}
                       />
                       {/* Glowing ring effect */}
                       {isHovered && (
                         <motion.span
                           layoutId="glow"
-                          className="absolute inset-0 rounded-2xl border border-primary/40"
+                          className="absolute inset-0 rounded-2xl border border-[#ee9dd6]"
                           initial={{ opacity: 0 }}
                           animate={{ opacity: 1 }}
                           exit={{ opacity: 0 }}
@@ -121,7 +121,7 @@ export default function Dock({
                     {isActive && (
                       <motion.div
                         layoutId="dot"
-                        className="w-1.5 h-1.5 rounded-full bg-primary mt-1"
+                        className="w-1.5 h-1.5 rounded-full bg-[#ee9dd6] mt-1"
                       />
                     )}
                   </motion.div>

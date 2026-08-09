@@ -99,11 +99,11 @@ export default function AppShell({ children }: AppShellProps) {
 
   return (
     <div className="min-h-screen bg-[#050702] text-paper flex flex-col md:flex-row">
-      {/* Desktop Left Rail Navigation (md:flex) with Vertical Dock */}
-      <aside className="hidden md:flex flex-col w-28 bg-ink-raised/80 backdrop-blur-xl border-r border-paper/10 min-h-screen py-6 px-2 sticky top-0 h-screen justify-between items-center z-30">
+      {/* Desktop Left Rail Navigation (md:flex) with Floating Vertical Dock */}
+      <aside className="hidden md:flex flex-col w-28 bg-transparent min-h-screen py-8 px-2 sticky top-0 h-screen justify-between items-center z-30 pointer-events-auto">
         {/* Brand header */}
-        <Link href="/communities" className="flex flex-col items-center space-y-1 group">
-          <div className="relative h-10 w-16 transition-transform group-hover:scale-105">
+        <Link href="/communities" className="flex flex-col items-center group pt-2">
+          <div className="relative h-16 w-24 sm:h-20 sm:w-28 transition-transform group-hover:scale-105">
             <Image
               src="/sol-logo.png"
               alt="SOL Logo"
@@ -112,29 +112,13 @@ export default function AppShell({ children }: AppShellProps) {
               priority
             />
           </div>
-          <span className="font-mono text-[8px] text-[#BEF202] uppercase tracking-widest leading-none text-center">
-            Guild
-          </span>
         </Link>
-
-        {/* User seal badge */}
-        {user && (
-          <div className="p-2 rounded-xl bg-ink border border-paper/10 flex flex-col items-center justify-center" title={user.display_name}>
-            <ConstellationSVG
-              seedData={{ seed: user.id.length * 99, depth_first: 0.8, overt_social: 0.5, truth_seeking: 0.7 }}
-              width={32}
-              height={32}
-              seal={true}
-            />
-          </div>
-        )}
 
         {/* Vertical Dock Component */}
         <Dock items={dockItems} orientation="vertical" tooltipSide="right" className="py-2" />
 
-        <div className="text-[10px] font-mono text-paper/30 text-center">
-          SOL v1.0
-        </div>
+        {/* Spacer to balance top logo */}
+        <div className="h-16 w-full" />
       </aside>
 
       {/* Main Content Viewport */}
