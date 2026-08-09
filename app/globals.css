@@ -24,6 +24,17 @@ body {
   font-family: var(--font-body);
 }
 
+/* Custom stroke hover effect for hero text */
+.hover-stroke-ee9dd6 {
+  transition: -webkit-text-stroke 0.3s ease, text-shadow 0.3s ease, color 0.3s ease;
+}
+
+.hover-stroke-ee9dd6:hover {
+  -webkit-text-stroke: 2px #ee9dd6;
+  text-shadow: 0 0 16px rgba(238, 157, 214, 0.5);
+  color: #F6F4FF !important;
+}
+
 /* Custom hairline borders */
 .border-ink-hairline {
   border-color: rgba(246, 244, 255, 0.1);

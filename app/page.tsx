@@ -20,27 +20,27 @@ export default function LandingPage() {
         />
       </div>
 
-      {/* Large Height Transparent Header with Big Centered Logo */}
+      {/* Reduced Height Transparent Header with Larger Logo */}
       <Header />
 
       {/* Hero Content Section - Centered, No Scroll */}
-      <main className="relative z-10 flex-1 flex flex-col items-center justify-center text-center px-6 max-w-4xl mx-auto space-y-8 pointer-events-auto">
-        {/* Title text in 700 weight with low opacity thick shadow on hover */}
+      <main className="relative z-10 flex-1 flex flex-col items-center justify-center text-center px-6 max-w-5xl mx-auto space-y-8 pointer-events-auto">
+        {/* Title text in ALL CAPITAL, 700 weight, with #ee9dd6 outline on hover (no color change) */}
         <h1
-          className="font-display font-bold text-4xl sm:text-6xl lg:text-7xl text-paper tracking-tight leading-tight transition-all duration-300 hover:text-amber-100 hover:drop-shadow-[0_20px_35px_rgba(255,122,69,0.35)] cursor-pointer select-none"
+          className="font-display font-bold text-4xl sm:text-6xl lg:text-7xl text-paper tracking-tight leading-tight uppercase hover-stroke-ee9dd6 cursor-pointer select-none"
           style={{ fontFamily: 'Product Sans, var(--font-space-grotesk), sans-serif', fontWeight: 700 }}
         >
-          Smart doesn&apos;t have to be lonely.
+          SMART DOESN&apos;T HAVE TO BE LONELY.
         </h1>
 
-        {/* Get Started Button */}
+        {/* Custom #2e4ed2 / #ee9dd6 Get Started Button */}
         <div className="pt-2">
           <GetStartedButton text="Get started" href="/signup" />
         </div>
       </main>
 
       {/* Subtle Footer Tagline */}
-      <footer className="relative z-10 py-4 font-mono text-[10px] text-paper/40 tracking-widest uppercase">
+      <footer className="relative z-10 py-3 font-mono text-[10px] text-paper/40 tracking-widest uppercase">
         SOL · YOUR INTELLECTUAL HOME
       </footer>
     </div>
