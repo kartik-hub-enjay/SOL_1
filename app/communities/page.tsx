@@ -44,7 +44,7 @@ export default function CommunitiesPage() {
         {/* Header section */}
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-paper/10 pb-6">
           <div>
-            <div className="flex items-center space-x-2 text-ember font-mono text-xs uppercase tracking-wider mb-1">
+            <div className="flex items-center space-x-2 text-[#2e4ed2] font-mono text-xs uppercase tracking-wider mb-1">
               <Compass className="w-4 h-4" />
               <span>COMMUNITY DIRECTORY</span>
             </div>
@@ -64,7 +64,7 @@ export default function CommunitiesPage() {
               placeholder="Search by topic or tag..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-ink-raised border border-paper/10 text-paper text-xs focus:outline-none focus:border-ember transition-colors"
+              className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-black/85 backdrop-blur-xl border border-paper/12 text-paper text-xs focus:outline-none focus:border-[#2e4ed2] transition-colors"
             />
           </div>
         </div>
@@ -77,8 +77,8 @@ export default function CommunitiesPage() {
               onClick={() => setSelectedTag(tag)}
               className={`px-3.5 py-1.5 rounded-xl font-mono text-xs whitespace-nowrap transition-all cursor-pointer ${
                 selectedTag === tag
-                  ? 'bg-ember text-ink font-bold shadow-md shadow-ember/10'
-                  : 'bg-ink-raised text-paper/70 hover:text-paper border border-paper/10'
+                  ? 'bg-[#2e4ed2] text-white font-bold border border-[#2e4ed2] shadow-md shadow-[#2e4ed2]/20'
+                  : 'bg-black/85 backdrop-blur-xl text-paper/70 hover:text-paper border border-paper/12'
               }`}
             >
               {tag === 'all' ? 'All Interests' : `#${tag}`}
@@ -91,12 +91,11 @@ export default function CommunitiesPage() {
           {filteredCommunities.map((comm) => {
             const isJoined = joinedIds.includes(comm.id);
             const memberCount = (comm.id.charCodeAt(5) || 7) * 4 + 18;
-            const spotlightColor = comm.cover_accent ? `${comm.cover_accent}35` : 'rgba(238, 157, 214, 0.25)';
 
             return (
               <SpotlightCard
                 key={comm.id}
-                spotlightColor={spotlightColor}
+                spotlightColor="rgba(255, 255, 255, 0.25)"
                 className="group flex flex-col justify-between space-y-4 hover:translate-y-[-2px] transition-all cursor-pointer"
                 onClick={() => router.push(`/communities/${comm.slug}`)}
               >
@@ -119,7 +118,7 @@ export default function CommunitiesPage() {
                     </div>
                   </div>
 
-                  <h2 className="font-display font-bold text-xl text-paper group-hover:text-ember transition-colors">
+                  <h2 className="font-display font-bold text-xl text-paper group-hover:text-[#2e4ed2] transition-colors">
                     {comm.name}
                   </h2>
 
