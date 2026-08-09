@@ -2,7 +2,7 @@
 'use client';
 
 import React from 'react';
-import CardNav from '@/components/CardNav';
+import Header from '@/components/Header';
 import NeonMesh from '@/components/ui/neon-mesh';
 import GetStartedButton from '@/components/GetStartedButton';
 
@@ -20,15 +20,8 @@ export default function LandingPage() {
         />
       </div>
 
-      {/* CardNav React Bits Navbar */}
-      <CardNav
-        logo="/sol-logo.png"
-        logoAlt="SOL Logo"
-        baseColor="rgba(15, 16, 36, 0.85)"
-        menuColor="#BEF202"
-        buttonBgColor="#FF7A45"
-        buttonTextColor="#0F1024"
-      />
+      {/* Large Height Transparent Header with Big Centered Logo */}
+      <Header />
 
       {/* Hero Content Section - Centered, No Scroll */}
       <main className="relative z-10 flex-1 flex flex-col items-center justify-center text-center px-6 max-w-4xl mx-auto space-y-8 pointer-events-auto">
