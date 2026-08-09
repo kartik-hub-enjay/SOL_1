@@ -1,3 +1,4 @@
+'use me';
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
@@ -30,14 +31,20 @@ export interface NeonMeshProps {
   description?: string;
   className?: string;
   showOverlayText?: boolean;
+  bgColor?: string;
+  baseMeshColor?: string;
+  neonLime?: string;
 }
 
 export function NeonMesh({
-  title = 'FIND YOUR CROWD',
-  subtitle = 'INTEREST-FIRST STUDENT GUILD',
-  description = 'Interactive 3D Verlet physics spatial mesh reacting to vector forces, perspective rotators, and kinetic drag.',
+  title = 'KINETIC',
+  subtitle = '',
+  description = 'Interactive 3D Verlet physics cloth reacting to spatial vector force, perspective rotators, and kinetic drag.',
   className = '',
   showOverlayText = true,
+  bgColor: customBgColor,
+  baseMeshColor: customBaseMeshColor,
+  neonLime: customNeonLime = '#BEF202',
 }: NeonMeshProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -177,6 +184,7 @@ export function NeonMesh({
 
     handleResize();
     window.addEventListener('resize', handleResize);
+    window.addEventListener('mousemove', handleMouseMove);
     container.addEventListener('mousemove', handleMouseMove);
     container.addEventListener('mouseleave', handleMouseLeave);
 
@@ -194,10 +202,9 @@ export function NeonMesh({
       const cosY = Math.cos(mouse.angleY);
       const sinY = Math.sin(mouse.angleY);
 
-      // Spark Brand Palette Adaptation: Ink (#0F1024), Signal (#7CF5D6), Ember (#FF7A45)
-      const bgColor = '#0F1024';
-      const baseMeshColor = '140, 135, 242'; // Violet-mist accent
-      const neonLime = '#7CF5D6'; // Signal mint
+      const bgColor = customBgColor || (isDarkMode ? '#050702' : '#f7fee7');
+      const baseMeshColor = customBaseMeshColor || (isDarkMode ? '101, 163, 13' : '132, 204, 22');
+      const neonLime = customNeonLime;
 
       ctx.fillStyle = bgColor;
       ctx.fillRect(0, 0, width, height);
@@ -308,7 +315,7 @@ export function NeonMesh({
           ? neonLime
           : `rgba(${baseMeshColor}, ${Math.min(
               1,
-              Math.max(0.1, (isDarkMode ? 0.35 : 0.5) * avgScale)
+              Math.max(0.1, (isDarkMode ? 0.25 : 0.4) * avgScale)
             )})`;
         ctx.lineWidth = isHot ? 2 * avgScale : 0.8 * avgScale;
 
@@ -341,32 +348,33 @@ export function NeonMesh({
     return () => {
       cancelAnimationFrame(animationFrameId);
       window.removeEventListener('resize', handleResize);
+      window.removeEventListener('mousemove', handleMouseMove);
       container.removeEventListener('mousemove', handleMouseMove);
       container.removeEventListener('mouseleave', handleMouseLeave);
     };
-  }, [isDarkMode]);
+  }, [isDarkMode, customBgColor, customBaseMeshColor, customNeonLime]);
 
   return (
     <div
       ref={containerRef}
-      className={`relative w-full h-full min-h-[400px] overflow-hidden select-none bg-ink ${className}`}
+      className={`relative w-full h-screen overflow-hidden select-none bg-[#050702] ${className}`}
     >
       <canvas ref={canvasRef} className="absolute inset-0 block cursor-crosshair" />
 
       {showOverlayText && (
-        <div className="relative z-10 flex h-full flex-col items-center justify-center text-center px-4 pointer-events-none text-paper">
+        <div className="relative z-10 flex h-full flex-col items-center justify-center text-center px-4 pointer-events-none mix-blend-difference text-white">
           {subtitle && (
-            <span className="font-mono text-xs tracking-widest uppercase mb-3 text-signal font-bold">
+            <span className="font-mono text-xs tracking-widest uppercase mb-3 text-[#BEF202]">
               {subtitle}
             </span>
           )}
           {title && (
-            <h1 className="font-display text-5xl md:text-8xl font-black tracking-tighter uppercase leading-none text-paper">
+            <h1 className="font-mono text-6xl md:text-9xl font-black tracking-tighter uppercase leading-none">
               {title}
             </h1>
           )}
           {description && (
-            <p className="mt-4 font-body text-xs md:text-sm max-w-lg text-paper/80 leading-relaxed">
+            <p className="mt-4 font-mono text-xs md:text-sm max-w-lg opacity-80">
               {description}
             </p>
           )}
