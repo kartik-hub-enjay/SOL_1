@@ -124,9 +124,6 @@ export default function CirclePage() {
                 </h1>
                 <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
               </div>
-              <p className="font-mono text-xs text-paper/50">
-                TRUSTED CIRCLE · 6 PEERS MATCHED BY FINGERPRINT
-              </p>
             </div>
           </div>
 
