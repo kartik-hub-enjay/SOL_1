@@ -8,8 +8,10 @@ import {
   getCircleMessages,
   sendCircleMessage,
   getCircleForCommunity,
+  getJoinedCommunityIds,
+  getCommunities,
 } from '@/lib/dataService';
-import { UserProfile, CircleMessage, Circle } from '@/lib/seedData';
+import { UserProfile, CircleMessage, Circle, Community } from '@/lib/seedData';
 import ConstellationSVG from '@/components/ConstellationSVG';
 import {
   MessageSquare,
@@ -25,6 +27,17 @@ import {
   Database,
 } from 'lucide-react';
 
+const tagIconMap: Record<string, any> = {
+  'web-dev': Code,
+  'cybersecurity': Shield,
+  'poetry': Feather,
+  'design': Palette,
+  'debate': Mic,
+  'music-production': Music,
+  'robotics': Bot,
+  'data-science': Database,
+};
+
 export default function CirclePage() {
   const [user, setUser] = useState<UserProfile | null>(null);
   const [activeTag, setActiveTag] = useState<string>('web-dev');
@@ -32,23 +45,17 @@ export default function CirclePage() {
   const [messages, setMessages] = useState<CircleMessage[]>([]);
   const [inputText, setInputText] = useState('');
   const [sending, setSending] = useState(false);
+  const [allCommunities, setAllCommunities] = useState<Community[]>([]);
+  const [joinedIds, setJoinedIds] = useState<string[]>([]);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
-
-  const joinedCirclesList: AvatarListItem[] = [
-    { id: '1', name: 'Web Dev Starter Pod', tag: 'web-dev', icon: Code },
-    { id: '2', name: 'Cybersecurity Pod', tag: 'cybersecurity', icon: Shield },
-    { id: '3', name: 'Poetry Circle', tag: 'poetry', icon: Feather },
-    { id: '4', name: 'Design Studio', tag: 'design', icon: Palette },
-    { id: '5', name: 'Debate Guild', tag: 'debate', icon: Mic },
-    { id: '6', name: 'Music Production', tag: 'music-production', icon: Music },
-    { id: '7', name: 'Robotics Lab', tag: 'robotics', icon: Bot },
-    { id: '8', name: 'Data Science Pod', tag: 'data-science', icon: Database },
-  ];
 
   useEffect(() => {
     const currentUser = getCurrentUser();
     setUser(currentUser);
+    setJoinedIds(getJoinedCommunityIds());
+
+    getCommunities().then((comms) => setAllCommunities(comms));
 
     if (typeof window !== 'undefined') {
       const stored = localStorage.getItem('spark_fingerprint_profile');
@@ -88,15 +95,22 @@ export default function CirclePage() {
     setTimeout(() => messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' }), 100);
   };
 
-  const avatarItemsWithActive = joinedCirclesList.map((item) => ({
-    ...item,
-    active: item.tag === activeTag,
+  // Only show joined communities in the AvatarList
+  const joinedCommunities = allCommunities.filter((c) => joinedIds.includes(c.id));
+  const displayCommunities = joinedCommunities.length > 0 ? joinedCommunities : allCommunities.slice(0, 3);
+
+  const avatarItemsWithActive: AvatarListItem[] = displayCommunities.map((comm) => ({
+    id: comm.id,
+    name: comm.name,
+    tag: comm.tag,
+    icon: tagIconMap[comm.tag] || Sparkles,
+    active: comm.tag === activeTag,
   }));
 
   return (
     <AppShell>
-      <div className="h-[calc(100vh-5rem)] md:h-screen flex flex-col bg-black text-paper">
-        {/* Circle Chat Top Header */}
+      <div className="h-full flex flex-col bg-black text-paper overflow-hidden">
+        {/* Circle Chat Top Header - FIXED / STICKY */}
         <header className="px-6 py-3.5 bg-black border-b border-paper/10 flex items-center justify-between z-10 shrink-0">
           <div className="flex items-center space-x-3">
             <div className="w-10 h-10 rounded-xl bg-[#2e4ed2]/20 border border-[#2e4ed2]/40 flex items-center justify-center text-[#2e4ed2]">
@@ -129,9 +143,9 @@ export default function CirclePage() {
         </header>
 
         {/* Main Message Stream */}
-        <div className="flex-1 flex flex-col min-w-0 bg-black">
-          {/* Messages container */}
-          <div className="flex-1 overflow-y-auto p-6 space-y-4">
+        <div className="flex-1 flex flex-col min-w-0 bg-black overflow-hidden">
+          {/* Messages container - INTERNAL SCROLL ONLY */}
+          <div className="flex-1 overflow-y-auto p-6 space-y-4 min-h-0">
             {messages.length === 0 ? (
               <div className="h-full flex flex-col items-center justify-center text-center p-8 text-paper/60 space-y-3">
                 <Sparkles className="w-8 h-8 text-[#ee9dd6]/60" />
@@ -194,9 +208,9 @@ export default function CirclePage() {
             <div ref={messagesEndRef} />
           </div>
 
-          {/* Input Footer with rounded input and inner send button */}
-          <form onSubmit={handleSendMessage} className="p-4 bg-black border-t border-paper/10">
-            <div className="relative w-full flex items-center border border-paper/20 rounded-full px-4 py-2 bg-transparent focus-within:border-[#2e4ed2] transition-colors">
+          {/* Input Footer with centered, taller rounded input and inner send button */}
+          <form onSubmit={handleSendMessage} className="p-4 bg-black border-t border-paper/10 shrink-0">
+            <div className="max-w-2xl mx-auto relative w-full flex items-center border border-paper/20 rounded-full px-5 py-3 bg-transparent focus-within:border-[#2e4ed2] transition-colors shadow-sm">
               <input
                 type="text"
                 value={inputText}
@@ -207,7 +221,7 @@ export default function CirclePage() {
               <button
                 type="submit"
                 disabled={!inputText.trim() || sending}
-                className="absolute right-1.5 p-2 rounded-full bg-paper/10 text-paper hover:bg-[#2e4ed2] hover:text-white disabled:opacity-30 disabled:hover:bg-paper/10 disabled:hover:text-paper transition-all cursor-pointer flex items-center justify-center"
+                className="absolute right-2 p-2.5 rounded-full bg-paper/10 text-paper hover:bg-[#2e4ed2] hover:text-white disabled:opacity-30 disabled:hover:bg-paper/10 disabled:hover:text-paper transition-all cursor-pointer flex items-center justify-center"
               >
                 <Send className="w-4 h-4" />
               </button>

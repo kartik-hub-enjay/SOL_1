@@ -100,7 +100,7 @@ export default function AppShell({ children }: AppShellProps) {
   return (
     <div className="min-h-screen bg-[#050702] text-paper flex flex-col md:flex-row">
       {/* Desktop Left Rail Navigation (md:flex) with Floating Vertical Dock */}
-      <aside className="hidden md:flex flex-col w-36 bg-transparent min-h-screen py-8 px-2 sticky top-0 h-screen justify-between items-center z-30 pointer-events-auto">
+      <aside className="hidden md:flex flex-col w-36 bg-transparent h-screen py-8 px-2 sticky top-0 justify-between items-center z-30 pointer-events-auto shrink-0">
         {/* Brand header */}
         <Link href="/communities" className="flex flex-col items-center group pt-2">
           <div className="relative h-24 w-36 sm:h-28 sm:w-40 transition-transform group-hover:scale-105">
@@ -122,7 +122,7 @@ export default function AppShell({ children }: AppShellProps) {
       </aside>
 
       {/* Main Content Viewport */}
-      <main className="flex-1 min-w-0 pb-20 md:pb-8">{children}</main>
+      <main className="flex-1 min-w-0 pb-20 md:pb-0 h-screen overflow-hidden flex flex-col">{children}</main>
 
       {/* Mobile Bottom Tab Bar (< md:flex) */}
       <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-ink-raised border-t border-paper/10 px-4 py-2 flex items-center justify-around z-40 backdrop-blur-lg">
