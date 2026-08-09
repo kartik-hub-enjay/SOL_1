@@ -8,6 +8,24 @@
   --color-signal: #7CF5D6;
   --color-violet-mist: #8C87F2;
 
+  --color-background: #050702;
+  --color-foreground: #F6F4FF;
+  --color-primary: #BEF202;
+  --color-primary-foreground: #050702;
+  --color-secondary: #181A38;
+  --color-secondary-foreground: #F6F4FF;
+  --color-accent: #181A38;
+  --color-accent-foreground: #BEF202;
+  --color-popover: #181A38;
+  --color-popover-foreground: #F6F4FF;
+  --color-destructive: #ef4444;
+  --color-destructive-foreground: #ffffff;
+  --color-muted: #181A38;
+  --color-muted-foreground: rgba(246, 244, 255, 0.6);
+  --color-border: rgba(246, 244, 255, 0.15);
+  --color-input: rgba(246, 244, 255, 0.2);
+  --color-ring: #BEF202;
+
   --font-display: var(--font-space-grotesk), sans-serif;
   --font-body: var(--font-inter), sans-serif;
   --font-mono: var(--font-jetbrains-mono), monospace;

@@ -1,4 +1,3 @@
-'use me';
 'use client';
 
 import React, { useState, useEffect } from 'react';
@@ -8,6 +7,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { getCurrentUser } from '@/lib/dataService';
 import { UserProfile } from '@/lib/seedData';
 import ConstellationSVG from './ConstellationSVG';
+import Dock from '@/components/ui/dock';
 import {
   Compass,
   MessageSquare,
@@ -38,6 +38,57 @@ export default function AppShell({ children }: AppShellProps) {
     router.push('/login');
   };
 
+  const isAdmin = user?.email?.toLowerCase() === 'admin@spark.edu' || user?.email?.toLowerCase() === 'admin@sol.edu';
+
+  const dockItems = [
+    {
+      icon: Compass,
+      label: 'Communities',
+      onClick: () => router.push('/communities'),
+      active: pathname.startsWith('/communities'),
+    },
+    {
+      icon: MessageSquare,
+      label: 'My Circle',
+      onClick: () => router.push('/circle'),
+      active: pathname.startsWith('/circle'),
+    },
+    {
+      icon: TrendingUp,
+      label: 'Journey',
+      onClick: () => router.push('/journey'),
+      active: pathname.startsWith('/journey'),
+    },
+    {
+      icon: Award,
+      label: 'Opportunities',
+      onClick: () => router.push('/opportunities'),
+      active: pathname.startsWith('/opportunities'),
+    },
+    {
+      icon: User,
+      label: 'Profile',
+      onClick: () => router.push('/profile'),
+      active: pathname.startsWith('/profile'),
+    },
+    ...(isAdmin
+      ? [
+          {
+            icon: Shield,
+            label: 'Admin Dashboard',
+            onClick: () => router.push('/admin'),
+            active: pathname.startsWith('/admin'),
+          },
+        ]
+      : []),
+    {
+      icon: LogOut,
+      label: 'Sign Out',
+      onClick: handleLogout,
+      active: false,
+    },
+  ];
+
   const navItems = [
     { href: '/communities', label: 'Communities', icon: Compass },
     { href: '/circle', label: 'My Circle', icon: MessageSquare },
@@ -46,94 +97,44 @@ export default function AppShell({ children }: AppShellProps) {
     { href: '/profile', label: 'Profile', icon: User },
   ];
 
-  const isAdmin = user?.email?.toLowerCase() === 'admin@spark.edu' || user?.email?.toLowerCase() === 'admin@sol.edu';
-
   return (
     <div className="min-h-screen bg-[#050702] text-paper flex flex-col md:flex-row">
-      {/* Desktop Left Rail Navigation (md:flex) */}
-      <aside className="hidden md:flex flex-col w-64 bg-ink-raised border-r border-paper/10 min-h-screen p-6 sticky top-0 h-screen justify-between z-30">
-        <div className="space-y-8">
-          {/* Brand header */}
-          <Link href="/communities" className="flex flex-col items-start space-y-1 group">
-            <div className="relative h-10 w-28 transition-transform group-hover:scale-105">
-              <Image
-                src="/sol-logo.png"
-                alt="SOL Logo"
-                fill
-                className="object-contain"
-                priority
-              />
-            </div>
-            <span className="font-mono text-[9px] text-[#BEF202] uppercase tracking-widest leading-none">
-              Student Guild
-            </span>
-          </Link>
+      {/* Desktop Left Rail Navigation (md:flex) with Vertical Dock */}
+      <aside className="hidden md:flex flex-col w-28 bg-ink-raised/80 backdrop-blur-xl border-r border-paper/10 min-h-screen py-6 px-2 sticky top-0 h-screen justify-between items-center z-30">
+        {/* Brand header */}
+        <Link href="/communities" className="flex flex-col items-center space-y-1 group">
+          <div className="relative h-10 w-16 transition-transform group-hover:scale-105">
+            <Image
+              src="/sol-logo.png"
+              alt="SOL Logo"
+              fill
+              className="object-contain"
+              priority
+            />
+          </div>
+          <span className="font-mono text-[8px] text-[#BEF202] uppercase tracking-widest leading-none text-center">
+            Guild
+          </span>
+        </Link>
 
-          {/* User seal badge */}
-          {user && (
-            <div className="p-3 rounded-xl bg-ink border border-paper/10 flex items-center space-x-3">
-              <ConstellationSVG
-                seedData={{ seed: user.id.length * 99, depth_first: 0.8, overt_social: 0.5, truth_seeking: 0.7 }}
-                width={36}
-                height={36}
-                seal={true}
-              />
-              <div className="overflow-hidden">
-                <div className="font-display font-bold text-xs text-paper truncate">
-                  {user.display_name}
-                </div>
-                <div className="font-mono text-[10px] text-signal truncate">
-                  Starter Pod Member
-                </div>
-              </div>
-            </div>
-          )}
+        {/* User seal badge */}
+        {user && (
+          <div className="p-2 rounded-xl bg-ink border border-paper/10 flex flex-col items-center justify-center" title={user.display_name}>
+            <ConstellationSVG
+              seedData={{ seed: user.id.length * 99, depth_first: 0.8, overt_social: 0.5, truth_seeking: 0.7 }}
+              width={32}
+              height={32}
+              seal={true}
+            />
+          </div>
+        )}
 
-          {/* Navigation Links */}
-          <nav className="space-y-1.5">
-            {navItems.map((item) => {
-              const Icon = item.icon;
-              const isActive = pathname.startsWith(item.href);
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className={`flex items-center space-x-3 px-4 py-3 rounded-xl font-mono text-xs transition-all ${
-                    isActive
-                      ? 'bg-[#2e4ed2]/30 text-[#BEF202] font-bold border border-[#BEF202]/40 shadow-md shadow-[#BEF202]/5'
-                      : 'text-paper/70 hover:bg-ink hover:text-paper border border-transparent'
-                  }`}
-                >
-                  <Icon className={`w-4 h-4 ${isActive ? 'text-[#BEF202]' : 'text-paper/60'}`} />
-                  <span>{item.label}</span>
-                </Link>
-              );
-            })}
+        {/* Vertical Dock Component */}
+        <Dock items={dockItems} orientation="vertical" tooltipSide="right" className="py-2" />
 
-            {isAdmin && (
-              <Link
-                href="/admin"
-                className={`flex items-center space-x-3 px-4 py-3 rounded-xl font-mono text-xs transition-all ${
-                  pathname.startsWith('/admin')
-                    ? 'bg-violet-mist/20 text-violet-mist font-bold border border-violet-mist/40'
-                    : 'text-violet-mist/70 hover:bg-ink hover:text-violet-mist border border-transparent'
-                }`}
-              >
-                <Shield className="w-4 h-4 text-violet-mist" />
-                <span>Admin Dashboard</span>
-              </Link>
-            )}
-          </nav>
+        <div className="text-[10px] font-mono text-paper/30 text-center">
+          SOL v1.0
         </div>
-
-        {/* Logout button */}
-        <button
-          onClick={handleLogout}
-          className="flex items-center space-x-3 px-4 py-3 rounded-xl font-mono text-xs text-paper/50 hover:text-red-400 hover:bg-ink border border-transparent transition-colors cursor-pointer"
-        >
-          <LogOut className="w-4 h-4" />
-          <span>Sign Out</span>
-        </button>
       </aside>
 
       {/* Main Content Viewport */}
@@ -161,3 +162,4 @@ export default function AppShell({ children }: AppShellProps) {
     </div>
   );
 }
+
