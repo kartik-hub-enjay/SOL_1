@@ -91,8 +91,8 @@ export default function Dock({
                       size="icon"
                       className={cn(
                         "rounded-2xl relative transition-all duration-200",
-                        isHovered && "shadow-[0_0_18px_#ee9dd6] bg-[#ee9dd6]",
-                        isActive && !isHovered && "bg-[#ee9dd6] shadow-sm"
+                        isHovered && "bg-black shadow-[0_0_18px_#ee9dd6] border border-[#ee9dd6]",
+                        isActive && !isHovered && "bg-black shadow-sm border border-paper/20"
                       )}
                       onClick={() => {
                         setInternalActive(item.label)
@@ -102,7 +102,7 @@ export default function Dock({
                       <item.icon
                         className={cn(
                           "h-6 w-6 transition-colors",
-                          (isActive || isHovered) ? "text-black" : "text-foreground"
+                          (isActive || isHovered) ? "text-white" : "text-paper/70"
                         )}
                       />
                       {/* Glowing ring effect */}
