@@ -54,8 +54,8 @@ export default function Dock({
         className={cn(
           "flex items-center rounded-3xl border bg-background/70 backdrop-blur-2xl shadow-lg",
           isVertical
-            ? "flex-col gap-4 px-3 py-4"
-            : "flex-row items-end gap-4 px-4 py-3"
+            ? "flex-col gap-6 px-3 py-4"
+            : "flex-row items-end gap-6 px-4 py-3"
         )}
         style={{
           transform: isVertical
@@ -91,7 +91,7 @@ export default function Dock({
                       size="icon"
                       className={cn(
                         "rounded-2xl relative transition-all duration-200",
-                        isHovered && "bg-black shadow-[0_0_18px_#ee9dd6] border border-[#ee9dd6]",
+                        isHovered && "bg-black shadow-[0_0_8px_rgba(238,157,214,0.35)] border border-[#ee9dd6]/50",
                         isActive && !isHovered && "bg-black shadow-sm border border-paper/20"
                       )}
                       onClick={() => {
@@ -109,7 +109,7 @@ export default function Dock({
                       {isHovered && (
                         <motion.span
                           layoutId="glow"
-                          className="absolute inset-0 rounded-2xl border border-[#ee9dd6]"
+                          className="absolute inset-0 rounded-2xl border border-[#ee9dd6]/40"
                           initial={{ opacity: 0 }}
                           animate={{ opacity: 1 }}
                           exit={{ opacity: 0 }}
