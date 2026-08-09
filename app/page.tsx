@@ -3,8 +3,9 @@
 
 import Link from 'next/link';
 import ConstellationSVG from '@/components/ConstellationSVG';
+import NeonMesh from '@/components/ui/neon-mesh';
 import { SEEDED_COMMUNITIES } from '@/lib/seedData';
-import { Sparkles, ArrowRight, Compass, Users, Award, ShieldCheck, CheckCircle2 } from 'lucide-react';
+import { Sparkles, ArrowRight, Compass, Users, Award, ShieldCheck, CheckCircle2, Move3d } from 'lucide-react';
 
 export default function LandingPage() {
   const steps = [
@@ -72,7 +73,7 @@ export default function LandingPage() {
 
       {/* HERO SECTION — Asymmetric Layout */}
       <section className="px-6 py-12 md:py-24 max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-        {/* Left Column (8 cols): Headline + CTA */}
+        {/* Left Column (7 cols): Headline + CTA */}
         <div className="lg:col-span-7 space-y-6">
           <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-ember/10 border border-ember/30 text-ember font-mono text-xs uppercase tracking-wider">
             <Sparkles className="w-3.5 h-3.5 animate-pulse" />
@@ -116,18 +117,18 @@ export default function LandingPage() {
           </div>
         </div>
 
-        {/* Right Column (5 cols): Signature Constellation Element */}
-        <div className="lg:col-span-5 flex justify-center relative">
-          <div className="p-8 rounded-3xl bg-ink-raised border border-paper/10 shadow-2xl relative overflow-hidden flex flex-col items-center">
-            <div className="absolute top-0 left-0 w-48 h-48 bg-signal/10 rounded-full blur-3xl pointer-events-none" />
-            <ConstellationSVG
-              seedData={{ seed: 998877, depth_first: 0.8, overt_social: 0.6, truth_seeking: 0.9 }}
-              width={300}
-              height={300}
-              animate={true}
+        {/* Right Column (5 cols): Interactive NeonMesh 3D Kinetic Canvas */}
+        <div className="lg:col-span-5 flex flex-col items-center justify-center relative">
+          <div className="w-full rounded-3xl bg-ink-raised border border-paper/10 shadow-2xl overflow-hidden relative group">
+            <NeonMesh
+              showOverlayText={false}
+              className="h-[340px] w-full"
             />
-            <div className="mt-4 font-mono text-[10px] text-paper/40 uppercase tracking-widest text-center">
-              SIGNATURE FINGERPRINT CONSTELLATION
+            <div className="absolute bottom-3 left-3 right-3 p-3 rounded-xl bg-ink/80 backdrop-blur-md border border-paper/10 flex items-center justify-between pointer-events-none">
+              <div className="flex items-center space-x-2 text-signal font-mono text-[10px]">
+                <Move3d className="w-3.5 h-3.5 animate-bounce" />
+                <span>INTERACTIVE 3D KINETIC MESH · MOVE CURSOR OVER CANVAS</span>
+              </div>
             </div>
           </div>
         </div>
