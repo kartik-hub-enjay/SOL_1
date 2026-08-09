@@ -47,7 +47,7 @@ const UserCheckIcon: React.FC = () => (
   </svg>
 );
 
-// Floating Label Input Component
+// Floating Label Input Component with Dark Background Lock
 const FloatingLabelInput: React.FC<{
   id: string;
   type: string;
@@ -62,7 +62,7 @@ const FloatingLabelInput: React.FC<{
 
   return (
     <div className="relative group">
-      <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-paper/50 transition-colors group-focus-within:text-[#BEF202]">
+      <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-paper/50 transition-colors group-focus-within:text-[#BEF202] z-10">
         {icon}
       </div>
       <input
@@ -72,14 +72,14 @@ const FloatingLabelInput: React.FC<{
         onChange={onChange}
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
-        className="flex h-11 w-full rounded-xl border border-white/15 bg-black/60 pl-10 pr-10 py-2 text-sm text-paper focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#BEF202] focus-visible:border-transparent transition-all duration-200 peer placeholder-transparent"
+        className="flex h-11 w-full rounded-xl border border-white/15 bg-[#050702]/80 text-[#F6F4FF] pl-10 pr-10 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#BEF202] focus-visible:border-transparent transition-all duration-200 peer placeholder-transparent"
         placeholder={placeholder}
       />
       <label
         htmlFor={id}
-        className={`absolute left-10 transition-all duration-200 pointer-events-none text-sm font-medium ${
+        className={`absolute left-10 transition-all duration-200 pointer-events-none text-sm font-medium z-10 ${
           isFocused || value
-            ? '-top-2.5 text-xs bg-black px-2 text-[#BEF202] rounded-md border border-[#BEF202]/40 shadow-sm'
+            ? '-top-2.5 text-xs bg-[#050702] px-2 text-[#BEF202] rounded-md border border-[#BEF202]/40 shadow-sm'
             : 'top-3 text-paper/50'
         }`}
       >
@@ -89,7 +89,7 @@ const FloatingLabelInput: React.FC<{
         <button
           type="button"
           onClick={onRightIconClick}
-          className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-paper/50 hover:text-paper transition-colors focus:outline-none"
+          className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-paper/50 hover:text-paper transition-colors focus:outline-none z-10"
         >
           {rightIcon}
         </button>
@@ -169,7 +169,7 @@ export default function LoginPage() {
 
       {/* Main Glassmorphism Card Container (Black Glass) */}
       <div className="relative z-10 w-full max-w-md pointer-events-auto">
-        <div className="relative bg-black/75 border border-white/15 rounded-3xl p-8 shadow-[0_8px_32px_0_rgba(0,0,0,0.75)] backdrop-blur-2xl transition-all duration-200">
+        <div className="relative bg-black/80 border border-white/15 rounded-3xl p-8 shadow-[0_8px_32px_0_rgba(0,0,0,0.85)] backdrop-blur-2xl transition-all duration-200">
           
           {/* Centered Large SOL Logo Header */}
           <div className="flex flex-col items-center text-center mb-6">
@@ -237,7 +237,7 @@ export default function LoginPage() {
             <div className="grid grid-cols-2 gap-2">
               <button
                 onClick={() => handleDemoSelect(SEEDED_STUDENTS[0])}
-                className="p-2.5 rounded-xl bg-black/60 border border-white/10 hover:border-[#BEF202]/50 text-left transition-all cursor-pointer"
+                className="p-2.5 rounded-xl bg-[#050702]/80 border border-white/10 hover:border-[#BEF202]/50 text-left transition-all cursor-pointer"
               >
                 <div className="text-xs font-bold text-paper flex items-center justify-between">
                   <span>{SEEDED_STUDENTS[0].display_name.split(' ')[0]}</span>
@@ -248,7 +248,7 @@ export default function LoginPage() {
 
               <button
                 onClick={() => handleDemoSelect(ADMIN_USER, '/admin')}
-                className="p-2.5 rounded-xl bg-black/60 border border-white/10 hover:border-violet-mist/50 text-left transition-all cursor-pointer"
+                className="p-2.5 rounded-xl bg-[#050702]/80 border border-white/10 hover:border-violet-mist/50 text-left transition-all cursor-pointer"
               >
                 <div className="text-xs font-bold text-paper flex items-center justify-between">
                   <span>Admin View</span>

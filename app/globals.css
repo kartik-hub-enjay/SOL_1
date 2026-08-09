@@ -14,7 +14,7 @@
 }
 
 :root {
-  --background: #0F1024;
+  --background: #050702;
   --foreground: #F6F4FF;
 }
 
@@ -35,6 +35,28 @@ body {
   color: #F6F4FF !important;
 }
 
+/* FIX: Prevent browser autofill and typed inputs from turning white */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus,
+select:-webkit-autofill:active {
+  -webkit-text-fill-color: #F6F4FF !important;
+  -webkit-box-shadow: 0 0 0px 1000px #050702 inset !important;
+  box-shadow: 0 0 0px 1000px #050702 inset !important;
+  transition: background-color 5000s ease-in-out 0s;
+  color: #F6F4FF !important;
+}
+
+/* Force dark background and white text for inputs */
+input, select, textarea {
+  color: #F6F4FF !important;
+  background-color: rgba(5, 7, 2, 0.7) !important;
+}
+
 /* Custom hairline borders */
 .border-ink-hairline {
   border-color: rgba(246, 244, 255, 0.1);
@@ -47,7 +69,7 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #0F1024;
+  background: #050702;
 }
 
 ::-webkit-scrollbar-thumb {
