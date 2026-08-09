@@ -109,7 +109,7 @@ export default function CirclePage() {
 
   return (
     <AppShell>
-      <div className="h-full flex flex-col bg-black text-paper overflow-hidden">
+      <div className="h-screen max-h-screen flex flex-col bg-black text-paper overflow-hidden">
         {/* Circle Chat Top Header - FIXED / STICKY */}
         <header className="px-6 py-3.5 bg-black border-b border-paper/10 flex items-center justify-between z-10 shrink-0">
           <div className="flex items-center space-x-3">

@@ -122,7 +122,7 @@ export default function AppShell({ children }: AppShellProps) {
       </aside>
 
       {/* Main Content Viewport */}
-      <main className="flex-1 min-w-0 pb-20 md:pb-0 h-screen overflow-hidden flex flex-col">{children}</main>
+      <main className="flex-1 min-w-0 min-h-screen pb-20 md:pb-8">{children}</main>
 
       {/* Mobile Bottom Tab Bar (< md:flex) */}
       <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-ink-raised border-t border-paper/10 px-4 py-2 flex items-center justify-around z-40 backdrop-blur-lg">
