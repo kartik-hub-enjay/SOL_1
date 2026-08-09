@@ -1,14 +1,16 @@
-'use me';
 'use client';
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import AppShell from '@/components/AppShell';
+import SpotlightCard from '@/components/SpotlightCard';
 import { getCommunities, getJoinedCommunityIds, toggleCommunityMembership } from '@/lib/dataService';
 import { Community } from '@/lib/seedData';
 import { Compass, Search, Check, Users, ArrowRight } from 'lucide-react';
 
 export default function CommunitiesPage() {
+  const router = useRouter();
   const [communities, setCommunities] = useState<Community[]>([]);
   const [joinedIds, setJoinedIds] = useState<string[]>([]);
   const [selectedTag, setSelectedTag] = useState<string>('all');
@@ -84,17 +86,19 @@ export default function CommunitiesPage() {
           ))}
         </div>
 
-        {/* Communities Grid */}
+        {/* Communities Grid with SpotlightCard */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredCommunities.map((comm) => {
             const isJoined = joinedIds.includes(comm.id);
             const memberCount = (comm.id.charCodeAt(5) || 7) * 4 + 18;
+            const spotlightColor = comm.cover_accent ? `${comm.cover_accent}35` : 'rgba(238, 157, 214, 0.25)';
 
             return (
-              <Link
+              <SpotlightCard
                 key={comm.id}
-                href={`/communities/${comm.slug}`}
-                className="group p-6 rounded-2xl bg-ink-raised border border-paper/10 hover:border-paper/20 transition-all flex flex-col justify-between space-y-4 hover:translate-y-[-2px]"
+                spotlightColor={spotlightColor}
+                className="group flex flex-col justify-between space-y-4 hover:translate-y-[-2px] transition-all cursor-pointer"
+                onClick={() => router.push(`/communities/${comm.slug}`)}
               >
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
@@ -132,7 +136,7 @@ export default function CommunitiesPage() {
 
                   <button
                     onClick={(e) => handleToggleJoin(e, comm.id)}
-                    className={`py-1.5 px-3.5 rounded-lg font-mono text-xs font-bold flex items-center space-x-1 transition-all cursor-pointer ${
+                    className={`py-1.5 px-3.5 rounded-lg font-mono text-xs font-bold flex items-center space-x-1 transition-all cursor-pointer relative z-10 ${
                       isJoined
                         ? 'bg-signal/20 text-signal border border-signal/40'
                         : 'bg-paper/10 text-paper hover:bg-paper/20 border border-paper/10'
@@ -148,7 +152,7 @@ export default function CommunitiesPage() {
                     )}
                   </button>
                 </div>
-              </Link>
+              </SpotlightCard>
             );
           })}
         </div>

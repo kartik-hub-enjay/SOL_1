@@ -100,10 +100,10 @@ export default function AppShell({ children }: AppShellProps) {
   return (
     <div className="min-h-screen bg-[#050702] text-paper flex flex-col md:flex-row">
       {/* Desktop Left Rail Navigation (md:flex) with Floating Vertical Dock */}
-      <aside className="hidden md:flex flex-col w-28 bg-transparent min-h-screen py-8 px-2 sticky top-0 h-screen justify-between items-center z-30 pointer-events-auto">
+      <aside className="hidden md:flex flex-col w-36 bg-transparent min-h-screen py-8 px-2 sticky top-0 h-screen justify-between items-center z-30 pointer-events-auto">
         {/* Brand header */}
         <Link href="/communities" className="flex flex-col items-center group pt-2">
-          <div className="relative h-16 w-24 sm:h-20 sm:w-28 transition-transform group-hover:scale-105">
+          <div className="relative h-24 w-36 sm:h-28 sm:w-40 transition-transform group-hover:scale-105">
             <Image
               src="/sol-logo.png"
               alt="SOL Logo"
@@ -118,7 +118,7 @@ export default function AppShell({ children }: AppShellProps) {
         <Dock items={dockItems} orientation="vertical" tooltipSide="right" className="py-2" />
 
         {/* Spacer to balance top logo */}
-        <div className="h-16 w-full" />
+        <div className="h-20 w-full" />
       </aside>
 
       {/* Main Content Viewport */}
