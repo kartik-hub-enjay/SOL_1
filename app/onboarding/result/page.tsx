@@ -81,11 +81,9 @@ export default function OnboardingResultPage() {
           </p>
         </div>
 
-        {/* Constellation SVG display */}
+        {/* Fingerprint Metadata display */}
         <div className="flex flex-col items-center justify-center p-6 rounded-2xl bg-black/70 border border-paper/12 relative overflow-hidden">
-          <ConstellationSVG seedData={seedData} width={260} height={260} animate={true} />
-          
-          <div className="mt-4 flex flex-wrap items-center justify-center gap-3">
+          <div className="flex flex-wrap items-center justify-center gap-3">
             <div className="px-3 py-1 rounded-lg bg-black/90 border border-[#2e4ed2]/40 font-mono text-xs text-[#2e4ed2]">
               PRIMARY · {primaryInterest.toUpperCase()}
             </div>
