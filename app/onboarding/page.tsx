@@ -1,9 +1,9 @@
-'use me';
 'use client';
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { getCurrentUser, setCurrentUser } from '@/lib/dataService';
+import NeonMesh from '@/components/ui/neon-mesh';
 import { ArrowRight, ArrowLeft, CheckCircle2, Sparkles } from 'lucide-react';
 
 const INTEREST_TAGS = [
@@ -121,13 +121,25 @@ export default function OnboardingPage() {
   const currentQNum = getQuestionNumber(step);
 
   return (
-    <div className="min-h-screen bg-ink text-paper flex flex-col items-center justify-center p-4">
-      <div className="w-full max-w-xl bg-ink-raised p-8 rounded-2xl border border-paper/10 shadow-2xl relative overflow-hidden">
-        {/* Top Progress bar */}
+    <div className="relative min-h-screen w-full bg-[#050702] text-paper flex flex-col items-center justify-center p-4 overflow-hidden">
+      {/* Home Screen Hero 3D Kinetic Verlet Canvas Background */}
+      <div className="fixed inset-0 w-full h-full z-0 pointer-events-none">
+        <NeonMesh
+          showOverlayText={false}
+          bgColor="#050702"
+          baseMeshColor="101, 163, 13"
+          neonLime="#BEF202"
+          className="w-full h-full"
+        />
+      </div>
+
+      {/* Black Glassmorphism Onboarding Card (Communities Card Style) */}
+      <div className="relative z-10 w-full max-w-xl bg-black/85 backdrop-blur-2xl p-8 sm:p-10 rounded-3xl border border-paper/12 shadow-2xl overflow-hidden pointer-events-auto">
+        {/* Top Header */}
         <div className="flex items-center justify-between mb-8 pb-4 border-b border-paper/10">
           <div className="flex items-center space-x-2">
-            <Sparkles className="w-4 h-4 text-ember" />
-            <span className="font-mono text-xs text-ember uppercase tracking-wider">
+            <Sparkles className="w-4 h-4 text-[#2e4ed2]" />
+            <span className="font-mono text-xs text-[#2e4ed2] uppercase tracking-wider font-bold">
               CURIOSITY & SKILL FINGERPRINT
             </span>
           </div>
@@ -136,10 +148,10 @@ export default function OnboardingPage() {
           </span>
         </div>
 
-        {/* Progress track */}
-        <div className="w-full bg-ink h-1.5 rounded-full mb-8 overflow-hidden">
+        {/* Progress bar with #ee9dd6 */}
+        <div className="w-full bg-black/60 border border-paper/10 h-2 rounded-full mb-8 overflow-hidden">
           <div
-            className="bg-gradient-to-r from-ember via-signal to-violet-mist h-full transition-all duration-300"
+            className="bg-[#ee9dd6] h-full transition-all duration-300 rounded-full shadow-[0_0_10px_#ee9dd6]"
             style={{ width: `${(currentQNum / 8) * 100}%` }}
           ></div>
         </div>
@@ -164,7 +176,7 @@ export default function OnboardingPage() {
               value={q1}
               onChange={(e) => setQ1(e.target.value)}
               placeholder="I could talk forever about..."
-              className="w-full p-4 rounded-xl bg-ink border border-paper/10 text-paper text-sm focus:outline-none focus:border-ember transition-colors"
+              className="w-full p-4 rounded-xl bg-black/70 border border-paper/12 text-paper text-sm focus:outline-none focus:border-[#2e4ed2] transition-colors placeholder:text-paper/40"
             />
           </div>
         )}
@@ -183,7 +195,7 @@ export default function OnboardingPage() {
               value={q2}
               onChange={(e) => setQ2(e.target.value)}
               placeholder="I’m drawn to understanding..."
-              className="w-full p-4 rounded-xl bg-ink border border-paper/10 text-paper text-sm focus:outline-none focus:border-signal transition-colors"
+              className="w-full p-4 rounded-xl bg-black/70 border border-paper/12 text-paper text-sm focus:outline-none focus:border-[#2e4ed2] transition-colors placeholder:text-paper/40"
             />
           </div>
         )}
@@ -205,12 +217,12 @@ export default function OnboardingPage() {
                   onClick={() => setPrimaryInterest(item.tag)}
                   className={`p-3 rounded-xl border text-xs font-mono text-left transition-all cursor-pointer flex items-center justify-between ${
                     primaryInterest === item.tag
-                      ? 'bg-ember/10 border-ember text-ember font-bold'
-                      : 'bg-ink border-paper/10 text-paper/70 hover:border-paper/30'
+                      ? 'bg-[#2e4ed2]/20 border-[#2e4ed2] text-white font-bold'
+                      : 'bg-black/70 border-paper/12 text-paper/70 hover:border-paper/30 hover:text-paper'
                   }`}
                 >
                   <span>{item.label}</span>
-                  {primaryInterest === item.tag && <CheckCircle2 className="w-3.5 h-3.5 text-ember" />}
+                  {primaryInterest === item.tag && <CheckCircle2 className="w-3.5 h-3.5 text-[#2e4ed2]" />}
                 </button>
               ))}
             </div>
@@ -236,12 +248,12 @@ export default function OnboardingPage() {
                     onClick={() => toggleSecondary(item.tag)}
                     className={`p-3 rounded-xl border text-xs font-mono text-left transition-all cursor-pointer flex items-center justify-between ${
                       selected
-                        ? 'bg-signal/10 border-signal text-signal font-bold'
-                        : 'bg-ink border-paper/10 text-paper/70 hover:border-paper/30'
+                        ? 'bg-[#2e4ed2]/20 border-[#2e4ed2] text-white font-bold'
+                        : 'bg-black/70 border-paper/12 text-paper/70 hover:border-paper/30 hover:text-paper'
                     }`}
                   >
                     <span>{item.label}</span>
-                    {selected && <CheckCircle2 className="w-3.5 h-3.5 text-signal" />}
+                    {selected && <CheckCircle2 className="w-3.5 h-3.5 text-[#2e4ed2]" />}
                   </button>
                 );
               })}
@@ -270,8 +282,8 @@ export default function OnboardingPage() {
                   onClick={() => setSkillLevel(opt.level as any)}
                   className={`w-full p-4 rounded-xl border text-left transition-all cursor-pointer ${
                     skillLevel === opt.level
-                      ? 'bg-violet-mist/10 border-violet-mist text-paper'
-                      : 'bg-ink border-paper/10 text-paper/70 hover:border-paper/30'
+                      ? 'bg-[#2e4ed2]/20 border-[#2e4ed2] text-white font-bold'
+                      : 'bg-black/70 border-paper/12 text-paper/70 hover:border-paper/30 hover:text-paper'
                   }`}
                 >
                   <div className="font-display font-bold text-sm text-paper">{opt.label}</div>
@@ -294,8 +306,8 @@ export default function OnboardingPage() {
                 onClick={() => setDepthFirst(0.9)}
                 className={`w-full p-4 rounded-xl border text-left transition-all cursor-pointer ${
                   depthFirst === 0.9
-                    ? 'bg-ember/10 border-ember text-paper'
-                    : 'bg-ink border-paper/10 text-paper/70 hover:border-paper/30'
+                    ? 'bg-[#2e4ed2]/20 border-[#2e4ed2] text-white font-bold'
+                    : 'bg-black/70 border-paper/12 text-paper/70 hover:border-paper/30 hover:text-paper'
                 }`}
               >
                 <div className="font-display font-bold text-sm text-paper">Go deep on one problem</div>
@@ -306,8 +318,8 @@ export default function OnboardingPage() {
                 onClick={() => setDepthFirst(0.3)}
                 className={`w-full p-4 rounded-xl border text-left transition-all cursor-pointer ${
                   depthFirst === 0.3
-                    ? 'bg-signal/10 border-signal text-paper'
-                    : 'bg-ink border-paper/10 text-paper/70 hover:border-paper/30'
+                    ? 'bg-[#2e4ed2]/20 border-[#2e4ed2] text-white font-bold'
+                    : 'bg-black/70 border-paper/12 text-paper/70 hover:border-paper/30 hover:text-paper'
                 }`}
               >
                 <div className="font-display font-bold text-sm text-paper">Explore five loose ideas</div>
@@ -329,8 +341,8 @@ export default function OnboardingPage() {
                 onClick={() => setOvertSocial(0.9)}
                 className={`w-full p-4 rounded-xl border text-left transition-all cursor-pointer ${
                   overtSocial === 0.9
-                    ? 'bg-signal/10 border-signal text-paper'
-                    : 'bg-ink border-paper/10 text-paper/70 hover:border-paper/30'
+                    ? 'bg-[#2e4ed2]/20 border-[#2e4ed2] text-white font-bold'
+                    : 'bg-black/70 border-paper/12 text-paper/70 hover:border-paper/30 hover:text-paper'
                 }`}
               >
                 <div className="font-display font-bold text-sm text-paper">Talk it through immediately</div>
@@ -341,8 +353,8 @@ export default function OnboardingPage() {
                 onClick={() => setOvertSocial(0.2)}
                 className={`w-full p-4 rounded-xl border text-left transition-all cursor-pointer ${
                   overtSocial === 0.2
-                    ? 'bg-violet-mist/10 border-violet-mist text-paper'
-                    : 'bg-ink border-paper/10 text-paper/70 hover:border-paper/30'
+                    ? 'bg-[#2e4ed2]/20 border-[#2e4ed2] text-white font-bold'
+                    : 'bg-black/70 border-paper/12 text-paper/70 hover:border-paper/30 hover:text-paper'
                 }`}
               >
                 <div className="font-display font-bold text-sm text-paper">Think it through alone first</div>
@@ -364,8 +376,8 @@ export default function OnboardingPage() {
                 onClick={() => setTruthSeeking(0.9)}
                 className={`w-full p-4 rounded-xl border text-left transition-all cursor-pointer ${
                   truthSeeking === 0.9
-                    ? 'bg-ember/10 border-ember text-paper'
-                    : 'bg-ink border-paper/10 text-paper/70 hover:border-paper/30'
+                    ? 'bg-[#2e4ed2]/20 border-[#2e4ed2] text-white font-bold'
+                    : 'bg-black/70 border-paper/12 text-paper/70 hover:border-paper/30 hover:text-paper'
                 }`}
               >
                 <div className="font-display font-bold text-sm text-paper">Going somewhere interesting</div>
@@ -376,8 +388,8 @@ export default function OnboardingPage() {
                 onClick={() => setTruthSeeking(0.4)}
                 className={`w-full p-4 rounded-xl border text-left transition-all cursor-pointer ${
                   truthSeeking === 0.4
-                    ? 'bg-signal/10 border-signal text-paper'
-                    : 'bg-ink border-paper/10 text-paper/70 hover:border-paper/30'
+                    ? 'bg-[#2e4ed2]/20 border-[#2e4ed2] text-white font-bold'
+                    : 'bg-black/70 border-paper/12 text-paper/70 hover:border-paper/30 hover:text-paper'
                 }`}
               >
                 <div className="font-display font-bold text-sm text-paper">Rigorous correctness</div>
@@ -393,7 +405,7 @@ export default function OnboardingPage() {
             <button
               type="button"
               onClick={handleBack}
-              className="px-4 py-2 rounded-xl bg-ink border border-paper/10 hover:border-paper/30 text-paper text-xs font-mono flex items-center space-x-1 transition-colors cursor-pointer"
+              className="px-4 py-2 rounded-xl bg-black/70 border border-paper/12 hover:border-paper/30 text-paper text-xs font-mono flex items-center space-x-1 transition-colors cursor-pointer"
             >
               <ArrowLeft className="w-3.5 h-3.5" />
               <span>Back</span>
@@ -405,7 +417,7 @@ export default function OnboardingPage() {
           <button
             type="button"
             onClick={handleNext}
-            className="px-6 py-3 rounded-xl bg-ember hover:opacity-90 text-ink font-display font-bold text-sm flex items-center space-x-2 transition-all cursor-pointer shadow-lg shadow-ember/10"
+            className="px-6 py-3 rounded-xl bg-[#2e4ed2] hover:bg-[#2e4ed2]/90 text-white font-display font-bold text-sm flex items-center space-x-2 transition-all cursor-pointer shadow-lg shadow-[#2e4ed2]/20"
           >
             <span>{step === totalSteps ? 'Generate Fingerprint' : 'Next Question'}</span>
             <ArrowRight className="w-4 h-4" />
