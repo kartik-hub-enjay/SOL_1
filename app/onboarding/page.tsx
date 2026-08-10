@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { getCurrentUser, setCurrentUser } from '@/lib/dataService';
 import NeonMesh from '@/components/ui/neon-mesh';
+import AnimatedBorderTrail from '@/components/AnimatedBorderTrail';
 import { ArrowRight, ArrowLeft, CheckCircle2, Sparkles } from 'lucide-react';
 
 const INTEREST_TAGS = [
@@ -414,14 +415,15 @@ export default function OnboardingPage() {
             <div />
           )}
 
-          <button
-            type="button"
+          <AnimatedBorderTrail
+            trailColor="#ee9dd6"
+            duration="3s"
+            borderRadius="0.75rem"
             onClick={handleNext}
-            className="px-6 py-3 rounded-xl bg-[#2e4ed2] hover:bg-[#2e4ed2]/90 text-white font-display font-bold text-sm flex items-center space-x-2 transition-all cursor-pointer shadow-lg shadow-[#2e4ed2]/20"
           >
             <span>{step === totalSteps ? 'Generate Fingerprint' : 'Next Question'}</span>
-            <ArrowRight className="w-4 h-4" />
-          </button>
+            <ArrowRight className="w-4 h-4 ml-2" />
+          </AnimatedBorderTrail>
         </div>
       </div>
     </div>
